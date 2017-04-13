@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>State and Form</title>
-    <script src="https://unpkg.com/react@15/dist/react.js"></script>
-    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
+	<meta charset="UTF-8">
+	<title>State and Form</title>
+	<script src="https://unpkg.com/react@15/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
 </head>
 <body>
 <div id="Main">
 </div>
 <script type="text/babel">
-    class StateForm extends React.Component {
-        constructor(props) {
-        	super(props);
+	class StateForm extends React.Component {
+		constructor(props) {
+			super(props);
 
-        	this.state = {
-        		message : "Loook at here!"
-            }
+			this.state = {
+				message: "Loook at here!"
+			}
 
-            this.handleChange = this.handleChange.bind(this);
-        }
+			this.handleChange = this.handleChange.bind(this);
+		}
 
-        handleChange(event) {
-            this.setState({message : event.target.value});
-        }
+		handleChange(event) {
+			this.setState({message: event.target.value});
+		}
 
-    	render() {
-    		return (
-    			<div>
-                    <h1>{this.state.message}</h1>
-    			    <form>
-                        <input type="text" onChange={this.handleChange}/>
-                    </form>
-                </div>
-            );
-        }
-    }
+		render() {
+			return (
+					<div>
+						<h1>Hello! {this.state.message}</h1>
+						<form>
+							<input type="text" onChange={this.handleChange}/>
+						</form>
+					</div>
+			);
+		}
+	}
 
-    ReactDOM.render(<StateForm />, document.getElementById('Main'));
+	ReactDOM.render(<StateForm />, document.getElementById('Main'));
 </script>
 </body>
 </html>

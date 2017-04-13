@@ -2,35 +2,19 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Form</title>
+	<title>JSX</title>
 	<script src="https://unpkg.com/react@15/dist/react.js"></script>
 	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
 </head>
 <body>
 <div id="Main">
+
 </div>
 
+<h1 style="color:blue; text-align:center">This is a html style header</h1>
 <script type="text/babel">
-	class ButtonX extends React.Component {
-		constructor(props) {
-			super(props);
-
-			this.handleClick = this.handleClick.bind(this);
-		}
-
-		handleClick() {
-			console.log(this);
-		}
-
-		render() {
-			return (<button onClick={this.handleClick}>Click Me</button>);
-		}
-	}
-
-	console.log(new ButtonX());
-
-	ReactDOM.render(<ButtonX />, document.getElementById('Main'));
+ReactDOM.render(<h1 style={{color:'blue', textAlign:'center'}}>This is a jsx style header</h1>, document.getElementById('Main'));
 </script>
 </body>
 </html>
