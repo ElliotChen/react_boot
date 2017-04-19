@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Component Layout</title>
+	<script src="https://unpkg.com/react@15/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
+	<style>
+		ul {
+			list-style-type: none;
+			width: 20%;
+			display: table;
+			table-layout: fixed;
+		}
+		li {
+			display: table-cell;
+		}
+	</style>
+</head>
+<body>
+<div id="Main">
+</div>
+
+<script type="text/babel">
+	var fakeTodos = [
+		{
+			id:'abc',
+			name:'Homework'
+		},
+		{
+			id:'def',
+			name:'House keeping'
+		}
+	];
+
+	class App extends React.Component {
+		render() {
+			return (
+				<div>
+					<TodoFrom />
+					<TodoList />
+				</div>
+			);
+		}
+	}
+
+	class TodoFrom extends React.Component {
+		render() {
+			return (
+				<div>
+					<h2>Form</h2>
+					<form>
+						<input type="text"/>
+						<button type="button">Add</button>
+					</form>
+				</div>
+			);
+		}
+	}
+
+	class TodoList extends React.Component {
+		listItem(item) {
+			return(
+				<TodoListItem key={item.id} item={item} />
+			);
+		}
+		render() {
+			return (
+				<div>
+					<h2>Todo List</h2>
+					{fakeTodos.map(this.listItem)}
+				</div>
+			);
+		}
+	}
+
+	class TodoListItem extends React.Component {
+		removeItem(Item) {
+			fakeTodos = fakeTodos.filter((it) => {it.id != item.id});
+		}
+		render() {
+			const {item} = this.props;
+			return (
+				<ul>
+					<li>{item.name}</li>
+					<li>
+						<button type="button" onClick={(event) => {console.log(item); fakeTodos = fakeTodos.filter((it) => {return (it.id != item.id);}); console.log(fakeTodos);}}>Delete</button>
+					</li>
+				</ul>
+			);
+		}
+	}
+
+	ReactDOM.render(<App />, document.getElementById('Main'));
+</script>
+</body>
+</html>

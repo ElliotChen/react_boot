@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Loop</title>
+	<script src="https://unpkg.com/react@15/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
+	<style>
+		ul {
+			list-style-type: none;
+			width: 80%;
+			display: table;
+			table-layout: fixed;
+		}
+		li {
+			display: table-cell;
+		}
+	</style>
+</head>
+<body>
+<div id="Main">
+</div>
+
+<script type="text/babel">
+	var fakeTodos = [{
+		id:1,
+		name:'Meet Teacher',
+		dateTime:'2017/12/23 12:45',
+		location:'Taipei 101'
+	},{
+		id:2,
+		name:'Meet Papa',
+		dateTime:'2017/12/24 14:45',
+		location:'Taipei City hall'
+	}];
+
+	class TodoList extends React.Component {
+		render() {
+			return (
+				<div>
+					<h1>Todo List</h1>
+					{fakeTodos.map((todo) => {return(<ul><li>{todo.toString()}</li></ul>)})}
+				</div>
+			);
+		}
+	}
+
+	ReactDOM.render(<TodoList />, document.getElementById('Main'));
+</script>
+</body>
+</html>
