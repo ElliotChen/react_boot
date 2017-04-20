@@ -13,23 +13,45 @@
 </div>
 
 <script type="text/babel">
-	var fakeTodos = [
-		{
-			id:'abc',
-			name:'Homework'
-		},
-		{
-			id:'def',
-			name:'House keeping'
-		}
-	];
-
 	class App extends React.Component {
+		constructor(props) {
+			super(props);
+
+			this.state = {
+				todos : [
+					{
+						id:'abc',
+						name:'Homework'
+					},
+					{
+						id:'def',
+						name:'House keeping'
+					}
+				]
+			};
+
+			this.addTotoItem = this.addTotoItem.bind(this);
+			this.deleteTotoItem = this.deleteTotoItem.bind(this);
+		}
+
+		addTotoItem(name) {
+            const newTodos = this.state.todos;
+            newTodos.push({id:Date.now(), name:name});
+            this.setState({todos:newTodos});
+            console.log(`After Adding item[${newTodos[newTodos.length - 1].name}], todos's size is [${newTodos.length}]`);
+		}
+
+		deleteTotoItem(item) {
+            const newTodos = this.state.todos.filter((it) => {return (it.id != item.id);});
+            this.setState({todos:newTodos});
+            console.log(`After deleting item[${item.name}], todos's size is [${newTodos.length}]`);
+		}
+
 		render() {
 			return (
 				<div>
-					<TodoFrom />
-					<TodoList />
+					<TodoFrom addTotoItem={this.addTotoItem}/>
+					<TodoList todos={this.state.todos} deleteTotoItem={this.deleteTotoItem}/>
 				</div>
 			);
 		}
@@ -39,12 +61,20 @@
 	    constructor(props) {
 	        super(props);
 
+            this.state = {
+                name:''
+            };
+
+            this.onNameChange = this.onNameChange.bind(this);
 	        this.onAddClick = this.onAddClick.bind(this);
 	    }
 
+        onNameChange(event) {
+            this.setState({name:event.target.value});
+        }
+
 	    onAddClick(event) {
-	        fakeTodos.push({id:Date.now(), name:'FakeTodo'});
-	        console.log(`After Adding item[${fakeTodos[fakeTodos.length - 1].name}], todos's size is [${fakeTodos.length}]`);
+	        this.props.addTotoItem(this.state.name);
 	    }
 
 		render() {
@@ -52,7 +82,7 @@
 				<div>
 					<h2>Form</h2>
 					<form>
-						<input type="text"/>
+						<input type="text" onChange={this.onNameChange}/>
 						<button type="button" onClick={this.onAddClick}>Add</button>
 					</form>
 				</div>
@@ -61,16 +91,22 @@
 	}
 
 	class TodoList extends React.Component {
+	    constructor(props) {
+            super(props);
+            this.listItem = this.listItem.bind(this);
+        }
+
 		listItem(item) {
 			return(
-				<TodoListItem key={item.id} item={item} />
+				<TodoListItem key={item.id} item={item} deleteTotoItem={this.props.deleteTotoItem}/>
 			);
 		}
+
 		render() {
 			return (
 				<div>
 					<h2>Todo List</h2>
-					{fakeTodos.map(this.listItem)}
+					{this.props.todos.map(this.listItem)}
 				</div>
 			);
 		}
@@ -84,10 +120,9 @@
 
 		onDeleteClick(event) {
 		    const {item} = this.props;
-            fakeTodos = fakeTodos.filter((it) => {return (it.id != item.id);});
-
-            console.log(`After deleting item[${item.name}], todos's size is [${fakeTodos.length}]`);
+            this.props.deleteTotoItem(item);
 		}
+
 		render() {
             const {item} = this.props;
 			return (

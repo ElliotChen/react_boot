@@ -2,24 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Component Layout</title>
 	<script src="https://unpkg.com/react@15/dist/react.js"></script>
 	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
-	<style>
-		ul {
-			list-style-type: none;
-			width: 20%;
-			display: table;
-			table-layout: fixed;
-		}
-		li {
-			display: table-cell;
-		}
-	</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<div id="Main">
+<div id="Main" class="container-fluid">
 </div>
 
 <script type="text/babel">
@@ -62,7 +53,10 @@
 	class TodoListItem extends React.Component {
 		render() {
 			return (
-				<ul><li>Sample Task</li><li><button>Delete</button></li></ul>
+				<div className="row">
+					<div className="col-md-2">Sample Task</div>
+					<div className="col-md-1"><button>Delete</button></div>
+				</div>
 			);
 		}
 	}
