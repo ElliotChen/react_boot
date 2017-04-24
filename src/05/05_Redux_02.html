@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Redux</title>
+	<script src="https://unpkg.com/react@15/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.4/react-redux.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div id="Main" class="container-fluid">
+</div>
+
+<script type="text/babel">
+	/**
+	 * Define some static string as type of actions
+	 * @type {string}
+	 */
+	const ADD_TODOITEM = 'ADD_TODOITME';
+	const DELETE_TODOITEM = 'DELETE_TODOITEM';
+	const UPDATE_NAME = 'UPDATE_NAME';
+
+	const defaultState = {
+		todos : [
+			{
+				id:'abc',
+				name:'Homework'
+			},
+			{
+				id:'def',
+				name:'House keeping'
+			}
+		]
+	}
+
+	const defaultTodos = [
+		{
+			id:'abc',
+			name:'Homework'
+		},
+		{
+			id:'def',
+			name:'House keeping'
+		}
+	];
+
+
+	function createAddTodoItemAction(name) {
+		return {
+			type : ADD_TODOITEM,
+			name : name
+		}
+	}
+
+	function createDeleteTodoItemAction(id) {
+		return {
+			type : DELETE_TODOITEM,
+			id : id
+		}
+	}
+
+	function createUpdateNameAction(name) {
+		return {
+			type : UPDATE_NAME,
+			name : name
+		}
+	}
+
+	/**
+	 * Define a reducer for every state property.
+	 * @param todos
+	 * @param action
+	 * @returns {*}
+	 */
+	function todosReducer (todos = defaultTodos, action) {
+		console.log(`todosReducer invoked with action[${action.type}]`);
+		switch (action.type) {
+			case ADD_TODOITEM:
+				return [ ...todos, {id:Date.now(), name:action.name}];
+			case DELETE_TODOITEM:
+				return todos.filter((it) => {return (it.id != action.id);});
+			default:
+				return todos;
+		}
+	}
+
+	function nameReducer(name = '', action) {
+		console.log(`nameReducer invoked with action[${action.type}]`);
+		switch (action.type) {
+			case UPDATE_NAME:
+				return action.name;
+			default:
+				return name;
+		}
+	}
+
+	/**
+	 * Compare defaultState
+	 * {
+	 * 	todos : [],
+	 * 	name : ''
+	 * }
+	 *
+	 * become
+	 *
+	 * {
+	 * 	todos : todoReducer,
+	 * 	name : nameReducer
+	 * }
+	 */
+	const reducers = Redux.combineReducers({
+		todos:todosReducer,
+		name:nameReducer
+	});
+
+	const store = Redux.createStore(reducers);
+	const Provider = ReactRedux.Provider;
+
+
+	class App extends React.Component {
+		componentWillMount() {
+			store.subscribe(()=>{this.setState(store.getState())});
+		}
+
+		render() {
+			return (
+					<div>
+						<TodoFrom />
+						<TodoList />
+					</div>
+			);
+		}
+	}
+
+	class TodoFrom extends React.Component {
+		constructor(props) {
+			super(props);
+
+			this.onNameChange = this.onNameChange.bind(this);
+			this.onAddClick = this.onAddClick.bind(this);
+		}
+
+		onNameChange(event) {
+			store.dispatch(createUpdateNameAction(event.target.value));
+		}
+
+		onAddClick(event) {
+			store.dispatch(createAddTodoItemAction(store.getState().name));
+		}
+
+		render() {
+			return (
+					<div>
+						<h2>Form</h2>
+						<form>
+							<input type="text" onChange={this.onNameChange}/>
+							<button type="button" onClick={this.onAddClick}>Add</button>
+						</form>
+					</div>
+			);
+		}
+	}
+
+
+	class TodoList extends React.Component {
+		constructor(props) {
+			super(props);
+			this.listItem = this.listItem.bind(this);
+		}
+
+		listItem(item) {
+			return(
+					<TodoListItem key={item.id} item={item} />
+			);
+		}
+
+		render() {
+			return (
+					<div>
+						<h2>Todo List</h2>
+						{store.getState().todos.map(this.listItem)}
+					</div>
+			);
+		}
+	}
+
+	/*
+	 function mapStateToProps(state) {
+	 return {todos:state.todos};
+	 }
+	 function mapDispatchToProps(dispatch) {
+	 return {onDeleteClick: (id) => {dispatch(createDeleteTodoItemAction(id))}};
+	 }
+
+	 const InhancedList = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(TodoList);
+	 */
+
+	class TodoListItem extends React.Component {
+		constructor(props) {
+			super(props);
+			this.onDeleteClick = this.onDeleteClick.bind(this);
+		}
+
+		onDeleteClick(event) {
+			const {item} = this.props;
+			store.dispatch(createDeleteTodoItemAction(item.id));
+		}
+
+
+		render() {
+			const {item} = this.props;
+			return (
+					<div className="row">
+						<div className="col-md-2">{item.name}</div>
+						<div className="col-md-1">
+							<button type="button" onClick={this.onDeleteClick}>Delete</button>
+						</div>
+					</div>
+			);
+		}
+	}
+
+	ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('Main'));
+</script>
+</body>
+</html>
