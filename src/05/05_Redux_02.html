@@ -173,30 +173,19 @@
 
 		listItem(item) {
 			return(
-					<TodoListItem key={item.id} item={item} />
+				<TodoListItem key={item.id} item={item} />
 			);
 		}
 
 		render() {
 			return (
-					<div>
-						<h2>Todo List</h2>
-						{store.getState().todos.map(this.listItem)}
-					</div>
+				<div>
+					<h2>Todo List</h2>
+					{store.getState().todos.map(this.listItem)}
+				</div>
 			);
 		}
 	}
-
-	/*
-	 function mapStateToProps(state) {
-	 return {todos:state.todos};
-	 }
-	 function mapDispatchToProps(dispatch) {
-	 return {onDeleteClick: (id) => {dispatch(createDeleteTodoItemAction(id))}};
-	 }
-
-	 const InhancedList = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(TodoList);
-	 */
 
 	class TodoListItem extends React.Component {
 		constructor(props) {
@@ -213,12 +202,12 @@
 		render() {
 			const {item} = this.props;
 			return (
-					<div className="row">
-						<div className="col-md-2">{item.name}</div>
-						<div className="col-md-1">
-							<button type="button" onClick={this.onDeleteClick}>Delete</button>
-						</div>
+				<div className="row">
+					<div className="col-md-2">{item.name}</div>
+					<div className="col-md-1">
+						<button type="button" onClick={this.onDeleteClick}>Delete</button>
 					</div>
+				</div>
 			);
 		}
 	}
