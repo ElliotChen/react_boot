@@ -23,19 +23,6 @@
 	const DELETE_TODOITEM = 'DELETE_TODOITEM';
 	const UPDATE_NAME = 'UPDATE_NAME';
 
-	const defaultState = {
-		todos : [
-			{
-				id:'abc',
-				name:'Homework'
-			},
-			{
-				id:'def',
-				name:'House keeping'
-			}
-		]
-	}
-
 	const defaultTodos = [
 		{
 			id:'abc',
@@ -126,10 +113,10 @@
 	class App extends React.Component {
 		render() {
 			return (
-					<div>
-						<ReduxTodoFrom />
-						<ReduxTodoList />
-					</div>
+				<div>
+					<ReduxTodoFrom />
+					<ReduxTodoList />
+				</div>
 			);
 		}
 	}

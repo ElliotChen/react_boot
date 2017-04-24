@@ -23,19 +23,6 @@
 	const DELETE_TODOITEM = 'DELETE_TODOITEM';
 	const UPDATE_NAME = 'UPDATE_NAME';
 
-	const defaultState = {
-		todos : [
-			{
-				id:'abc',
-				name:'Homework'
-			},
-			{
-				id:'def',
-				name:'House keeping'
-			}
-		]
-	}
-
 	const defaultTodos = [
 		{
 			id:'abc',
@@ -79,8 +66,10 @@
 		console.log(`todosReducer invoked with action[${action.type}]`);
 		switch (action.type) {
 			case ADD_TODOITEM:
+				console.log(` -- with name[${action.name}]`);
 				return [ ...todos, {id:Date.now(), name:action.name}];
 			case DELETE_TODOITEM:
+				console.log(` -- with id[${action.id}]`);
 				return todos.filter((it) => {return (it.id != action.id);});
 			default:
 				return todos;
@@ -91,6 +80,7 @@
 		console.log(`nameReducer invoked with action[${action.type}]`);
 		switch (action.type) {
 			case UPDATE_NAME:
+				console.log(` -- with name[${action.name}]`);
 				return action.name;
 			default:
 				return name;
