@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Uncontrolled Form</title>
+	<script src="https://unpkg.com/react@15/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div id="Main" class="container-fluid">
+</div>
+
+<script type="text/babel">
+	class LoginForm extends React.Component {
+
+		onLoginFormSubmit = (event) => {
+			event.preventDefault();
+
+			const username = this.refs.username.value;
+			const password = this.refs.password.value;
+
+			alert(`Input data - username[${username}], password[${password}]`);
+
+
+			this.refs.password.focus();
+			this.refs.username.disabled=true;
+		}
+
+		render() {
+			return (
+				<form onSubmit={this.onLoginFormSubmit}>
+					<input type="text" id="username" name="username" ref="username"/>
+					<input type="password" id="password" name="password" ref="password"/>
+					<button type="submit">Login</button>
+				</form>
+			);
+		}
+	}
+
+
+	ReactDOM.render(<LoginForm />, document.getElementById("Main"));
+</script>
+</body>
+</html>

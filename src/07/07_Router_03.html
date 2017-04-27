@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Router</title>
+	<script src="https://unpkg.com/react@15/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+	<script src="https://unpkg.com/prop-types/prop-types.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
+
+	<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div id="Main" class="container-fluid">
+</div>
+<script type="text/babel">
+	/*
+	import ReactRouter Objects From ReactRouterDOM
+	 */
+	const BrowserRouter = ReactRouterDOM.BrowserRouter;
+	const Route = ReactRouterDOM.Route;
+	const IndexRoute = ReactRouterDOM.IndexRoute;
+	const Link = ReactRouterDOM.Link;
+	const browserHistory = ReactRouterDOM.browserHistory;
+
+	class BasicRouter extends React.Component {
+		render() {
+			return (
+				<BrowserRouter history={browserHistory}>
+					<div>
+						<h2>Accounts</h2>
+						<ul>
+							<li><Link to="/netflix">Netflix</Link></li>
+							<li><Link to="/zillow-group">Zillow Group</Link></li>
+							<li><Link to="/yahoo">Yahoo</Link></li>
+							<li><Link to="/modus-create">Modus Create</Link></li>
+						</ul>
+
+						<Route path="/:id" component={Child}/>
+					</div>
+				</BrowserRouter>
+			);
+		}
+	}
+
+	class Child extends React.Component {
+		constructor(props) {
+			super(props);
+
+			console.log(props);
+		}
+
+		render() {
+			const {match} = this.props;
+			return (
+				<div>
+					Child - {match.url} -
+
+				</div>
+			);
+		}
+	}
+
+	class AboutMe extends React.Component {
+		render() {
+			return (
+				<div>
+					AboutMe
+				</div>
+			);
+		}
+	}
+
+	class UserList extends React.Component {
+		render() {
+			return (
+				<div>
+					<ul>
+						<li><Link to="/userlist/adam">Adam</Link></li>
+						<li><Link to="/userlist/bill">Bill</Link></li>
+					</ul>
+					<hr/>
+				</div>
+			);
+		}
+	}
+
+	class UserDetail extends React.Component {
+		render() {
+			return (
+					<div>
+						User Detail :
+					</div>
+			);
+		}
+	}
+
+	ReactDOM.render(<BasicRouter/>, document.getElementById("Main"));
+</script>
+</body>
+</html>

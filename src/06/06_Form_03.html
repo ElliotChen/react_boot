@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES7 Controlled Form</title>
+	<script src="https://unpkg.com/react@15/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+	<script src="https://unpkg.com/prop-types/prop-types.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div id="Main" class="container-fluid">
+</div>
+
+<script type="text/babel">
+	class LoginForm extends React.Component {
+		state = {
+			username:'',
+			password:'',
+			logined : false
+		}
+
+		onInputChange = (event) => {
+			const {target} = event;
+
+			if (null == target) {
+				console.log("Accept Unknown Target!!!");
+				return;
+			}
+
+			console.log(`target - ${target}, type[${target.type}], id[${target.id}], name[${target.name}], value[${target.value}]`);
+
+			switch (target.type) {
+				case 'text':
+				case 'password':
+					console.log("Accept Text");
+					this.setState({[target.name]:target.value});
+					break;
+				default:
+					console.log(`Accept Unhandlable Type[${target.type}]`);
+			}
+		}
+
+		onLoginFormSubmit = (event) => {
+			event.preventDefault();
+			alert(`Input data - username[${this.state.username}], password[${this.state.password}]`);
+
+			this.setState({logined:true});
+		}
+
+		onLogoutFormSubmit = (event) => {
+			event.preventDefault();
+			alert('Do Logout!');
+
+			this.setState({logined:false});
+		}
+
+		renderLoginForm = () => {
+			return (
+			<form onSubmit={this.onLoginFormSubmit}>
+				<input type="text" id="username" name="username" onChange={this.onInputChange}/>
+				<input type="password" id="password" name="password" onChange={this.onInputChange}/>
+				<button type="submit">Login</button>
+			</form>);
+		}
+
+		renderLogoutForm = () => {
+			return (
+			<form onSubmit={this.onLogoutFormSubmit}>
+				<button type="submit">Logout</button>
+			</form>
+			);
+		}
+
+		render() {
+			return (
+				<div>
+				{this.state.logined ? (this.renderLogoutForm()) : (this.renderLoginForm())}
+				</div>
+			);
+		}
+	}
+
+
+	ReactDOM.render(<LoginForm />, document.getElementById("Main"));
+</script>
+</body>
+</html>
