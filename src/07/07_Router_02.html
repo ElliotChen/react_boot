@@ -26,31 +26,31 @@
 	const Link = ReactRouterDOM.Link;
 	const browserHistory = ReactRouterDOM.browserHistory;
 
-	class BasicRouter extends React.Component {
+	class App extends React.Component {
 		render() {
 			return (
 				<BrowserRouter history={browserHistory}>
 					<div>
+						<Route exact path="/" component={Home} />
+						<Route path="/userlist" component={UserList} />
+						<Route path="/about" component={AboutMe}/>
+						<hr/>
 						<ul>
 							<li><Link to="/">Home</Link></li>
 							<li><Link to="/userlist">UserList</Link></li>
 							<li><Link to="/about">AboutMe</Link></li>
 						</ul>
-						<hr/>
-						<Route exact path="/" component={App} />
-						<Route path="/userlist" component={UserList}/>
-						<Route path="/about" component={AboutMe}/>
 					</div>
 				</BrowserRouter>
 			);
 		}
 	}
 
-	class App extends React.Component {
+	class Home extends React.Component {
 		render() {
 			return (
 				<div>
-					App
+					Home
 				</div>
 			);
 		}
@@ -68,14 +68,15 @@
 
 	class UserList extends React.Component {
 		render() {
+			const {match} = this.props;
 			return (
 				<div>
 					<ul>
-						<li><Link to="/userlist/adam">Adam</Link></li>
-						<li><Link to="/userlist/bill">Bill</Link></li>
+						<li><Link to={`${match.url}/adam`}>Adam</Link></li>
+						<li><Link to={`${match.url}/bill`}>Bill</Link></li>
 					</ul>
 					<hr/>
-					<Route exact path="/userlist/:name" component={UserDetail}/>
+					<Route path={`${match.url}/:name`} component={UserDetail}/>
 				</div>
 			);
 		}
@@ -85,14 +86,14 @@
 		render() {
 			const {match} = this.props;
 			return (
-					<div>
-						User Detail : {this.match.params.name}
-					</div>
+				<div>
+					User Detail : {match.params.name}
+				</div>
 			);
 		}
 	}
 
-	ReactDOM.render(<BasicRouter/>, document.getElementById("Main"));
+	ReactDOM.render(<App/>, document.getElementById("Main"));
 </script>
 </body>
 </html>

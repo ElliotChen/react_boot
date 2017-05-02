@@ -18,7 +18,7 @@
 </div>
 <script type="text/babel">
 	/*
-	import ReactRouter Objects From ReactRouterDOM
+	 import ReactRouter Objects From ReactRouterDOM
 	 */
 	const BrowserRouter = ReactRouterDOM.BrowserRouter;
 	const Route = ReactRouterDOM.Route;
@@ -29,37 +29,34 @@
 	class BasicRouter extends React.Component {
 		render() {
 			return (
-				<BrowserRouter history={browserHistory}>
-					<div>
-						<h2>Accounts</h2>
-						<ul>
-							<li><Link to="/netflix">Netflix</Link></li>
-							<li><Link to="/zillow-group">Zillow Group</Link></li>
-							<li><Link to="/yahoo">Yahoo</Link></li>
-							<li><Link to="/modus-create">Modus Create</Link></li>
-						</ul>
+					<BrowserRouter history={browserHistory}>
+						<div>
 
-						<Route path="/:id" component={Child}/>
-					</div>
-				</BrowserRouter>
+							<Route exact path="/" component={App} >
+								<Route path="userlist" component={UserList}>
+
+								</Route>
+								<Route path="about" component={AboutMe}/>
+							</Route>
+						</div>
+					</BrowserRouter>
 			);
 		}
 	}
 
-	class Child extends React.Component {
-		constructor(props) {
-			super(props);
-
-			console.log(props);
-		}
-
+	class App extends React.Component {
 		render() {
-			const {match} = this.props;
 			return (
-				<div>
-					Child - {match.params.id} -
-
-				</div>
+					<div>
+						<h1>App</h1>
+						<ul>
+							<li><Link to="/">Home</Link></li>
+							<li><Link to="/userlist">UserList</Link></li>
+							<li><Link to="/about">AboutMe</Link></li>
+						</ul>
+						<hr/>
+						${this.props.children}
+					</div>
 			);
 		}
 	}
@@ -67,9 +64,9 @@
 	class AboutMe extends React.Component {
 		render() {
 			return (
-				<div>
-					AboutMe
-				</div>
+					<div>
+						AboutMe
+					</div>
 			);
 		}
 	}
@@ -77,22 +74,30 @@
 	class UserList extends React.Component {
 		render() {
 			return (
-				<div>
-					<ul>
-						<li><Link to="/userlist/adam">Adam</Link></li>
-						<li><Link to="/userlist/bill">Bill</Link></li>
-					</ul>
-					<hr/>
-				</div>
+					<div>
+						<ul>
+							<li><Link to="/userlist/adam">Adam</Link></li>
+							<li><Link to="/userlist/bill">Bill</Link></li>
+						</ul>
+						<hr/>
+
+						{this.props.children}
+					</div>
 			);
 		}
 	}
 
 	class UserDetail extends React.Component {
+		constructor(props) {
+			super(props);
+
+			console.log(props);
+		}
 		render() {
+			const {match} = this.props;
 			return (
 					<div>
-						User Detail :
+						User Detail : {this.match.params.name}
 					</div>
 			);
 		}
