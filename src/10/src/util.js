@@ -1,6 +1,8 @@
 
 class OurUtils {
-	static sayHello() {
+	constructor() {
+	}
+	sayHello() {
 		document.write('Hello from OurUtils!');
 	}
 }
