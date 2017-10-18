@@ -1,7 +1,7 @@
 /**
  * Created by elliot on 15/05/2017.
  */
-import _ from 'lodash';
+var _ = require('lodash');
 
 import OurUtils from './util';
 

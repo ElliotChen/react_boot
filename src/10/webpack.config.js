@@ -1,3 +1,4 @@
+var path= require('path');
 var webpack = require('webpack');
 
 var config = {
@@ -6,7 +7,8 @@ var config = {
 		app: './app.js'
 	},
 	output: {
-		path: __dirname+'/dist',
+		path: __dirname + '/dist',
+		//publicPath: '/assets',
 		filename: '[name].bundle.js'
 	},
 	devServer: {
@@ -22,6 +24,7 @@ var config = {
 					{
 						loader: 'babel-loader',
 						options: {
+							
 							presets:[
 								['es2015', {modules:false, loose:false}]
 							]
