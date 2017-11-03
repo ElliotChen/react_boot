@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "mockServer": "json-server -d 3000 ./json_db/db.json &"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +29,7 @@
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "reactstrap": "^5.0.0-alpha.3",
     "redux": "^3.7.2"
   }
 }

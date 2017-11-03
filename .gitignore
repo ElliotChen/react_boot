@@ -22,3 +22,4 @@ node_modules/
 build/
 target/
 dist/
+json_db/

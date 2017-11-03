@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Router</title>
+	<script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+	<script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+	<script src="https://unpkg.com/prop-types/prop-types.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+	<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+	<script src="https://unpkg.com/history/umd/history.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div id="Main" class="container-fluid">
+</div>
+<script type="text/babel">
+	const users = [{name:"Adam", oid:"124"},{name:"Peter", oid:"123"}];
+
+	/*
+	const getUsers = () => {
+		return new Promise((resolve, reject) => {
+			setTimeout(()=>{resolve(users)},5000);
+		});
+	}
+
+	getUsers().then((result)=>{console.log(result)});
+	*/
+
+	new Promise((resolve, reject) => {setTimeout(()=>{resolve(users)},5000);})
+		.then((result) => {console.log(result)});
+</script>
+</body>
+</html>

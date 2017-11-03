@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { Button } from 'reactstrap';
 
 class TodoListItem extends React.Component {
 	render() {
@@ -8,7 +8,7 @@ class TodoListItem extends React.Component {
 			<div className="row">
 				<div className="col-md-2">{item.name}</div>
 				<div className="col-md-1">
-					<button type="button">Delete</button>
+					<Button color="danger">Delete</Button>
 				</div>
 			</div>);
 	}

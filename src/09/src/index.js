@@ -5,19 +5,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Provider} from 'react-redux';
+
 import TodoForm from './page/TodoForm';
 import TodoList from './page/TodoList';
 
+import {store} from './_helpers/storeHelper';
+
 class App extends React.Component {
 	render() {
-		const todos = [{id:1,name:'123'}, {id:2,name:'234'}];
+		console.log(store);
 		return (
 			<div>
 				<TodoForm/>
-				<TodoList todos={todos}/>
+				<TodoList/>
 			</div>
 		);
 	}
 }
 
-ReactDOM.render(<App />, document.getElementById('main'));
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('main'));
