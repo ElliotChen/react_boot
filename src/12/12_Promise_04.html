@@ -19,20 +19,41 @@
 <div id="Main" class="container-fluid">
 </div>
 <script type="text/babel">
-	const users = [{name:"Adam", oid:"124"},{name:"Peter", oid:"123"}];
+	const API = 'http://localhost:3000/Todos';
 
-	/*
-	const getUsers = () => {
-		return new Promise((resolve, reject) => {
-			setTimeout(()=>{resolve(users)},5000);
-		});
+	function normalLoadTodos() {
+		console.log("1. ---Normal Loading---");
+		fetch(API)
+			.then(response => response.json())
+			.then(data => {console.log("2. Normal [Data] - "+data)});
+		console.log("3. ---Normal Loading Finished---");
 	}
 
-	getUsers().then((result)=>{console.log(result)});
-	*/
+	function normalLoadTodos2() {
+		console.log("1. ---Normal Loading---");
+		fetch(API)
+			.then(response => response.json())
+			.then(data => {console.log("2. Normal [Data] - "+data)})
+			.then(()=> console.log("3. ---Normal Loading Finished---"));
+	}
 
-	new Promise((resolve, reject) => {setTimeout(()=>{resolve(users)},5000);})
-		.then((result) => {console.log(result)});
+	async function asyncLoadTodos() {
+		console.log("1. ---Async Loading---");
+		await fetch(API)
+			.then(response => response.json())
+			.then(data => {console.log("2. Async [Data] - "+data)});
+		console.log("3. ---Async Loading Finished---");
+	}
+
+	async function asyncLoadTodos2() {
+		console.log("1. ---Async Loading---");
+		let response = await fetch(API);
+		let data = response.json();
+		console.log("2. Async [Data] - "+data);
+		console.log("3. ---Async Loading Finished---");
+	}
+	//normalLoadTodos2();
+	asyncLoadTodos2();
 </script>
 </body>
 </html>

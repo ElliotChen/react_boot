@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from 'redux';
 
-import {todoReducers} from '../_reducers';
+import {todoReducers, fakeReducers} from '../_reducers';
 
-const reducer = combineReducers({todoReducers});
+const reducer = combineReducers({todoState:todoReducers, fake:fakeReducers});
 
 export const store = createStore(reducer);

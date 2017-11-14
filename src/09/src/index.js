@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
 import TodoForm from './page/TodoForm';
-import TodoList from './page/TodoList';
+import {TodoList} from './page/TodoList';
 
 import {store} from './_helpers/storeHelper';
 

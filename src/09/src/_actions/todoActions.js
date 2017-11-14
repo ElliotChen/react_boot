@@ -1,27 +1,29 @@
 import {todoConstants} from '../_constants';
 
 export const todoActions = {
-	loadAllTodos,
-	addTodo,
-	removeTodo
+	showLoading,
+	listTodos,
+	finishLoading
 };
 
-function loadAllTodos() {
+function showLoading() {
 	return {
-		type : todoConstants.LOAD_ALL
+		type : todoConstants.SENDING_REQUET,
+		loading : true
 	}
 }
 
-function addTodo(todo) {
+function listTodos(todos) {
 	return {
-		type : todoConstants.ADD_TODO,
-		todo
+		type : todoConstants.LOAD_ALL,
+		loading : false,
+		todos
 	}
 }
 
-function removeTodo(todo) {
+function finishLoading() {
 	return {
-		type : todoConstants.REMOVE_TODO,
-		todo
+		type : todoConstants.FINISHED_REQUEST,
+		loading : false
 	}
 }
