@@ -1,11 +1,11 @@
 const Todo = {
-	"id":"",
-	"name":""
+	id:"",
+	name:""
 };
 
 const User = {
-	"id":"",
-	"name":""
+	id:"",
+	name:""
 };
 
 const Model = {

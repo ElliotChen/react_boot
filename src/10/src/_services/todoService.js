@@ -45,6 +45,6 @@ async function pureRemoveTodo(todo) {
 		console.log(`pure remove -- ${data}`);
 		return data;
 	} catch (error) {
-		return [{... Model.Todo}];
+		return [{}];
 	}
 }

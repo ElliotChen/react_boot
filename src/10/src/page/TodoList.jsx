@@ -17,24 +17,15 @@ class TodoList extends React.Component {
 	}
 
 	componentDidMount() {
-		//console.log(this.props);
-		/*
-		this.setState({loading:true});
-		fetch(API)
-			.then(response => response.json())
-			.then(data => {
-				this.setState({loading:false, todos:data});
-			}).catch(data => {
-			this.setState({loading:false});
-		});
-		*/
 
 		/*
 		this.props.showLoading();
 		todoService.loadAllTodos(this.props.listTodos, this.props.finishLoading);
 		*/
 
-		this.asyncLoad();
+		//this.asyncLoad();
+
+		this.props.thunkListTodos();
 
 	}
 
@@ -110,6 +101,9 @@ function mapDispatchToProps(dispatch) {
 		},
 		finishLoading : () => {
 			dispatch(todoActions.finishLoading());
+		},
+		thunkListTodos : () => {
+			dispatch(todoActions.thunkListTodos());
 		}
 	};
 }

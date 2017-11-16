@@ -14,8 +14,8 @@ class TodoListItem extends React.Component {
 		this.props.showLoading();
 		todoService.removeTodo(item, this.props.listTodos,this.props.finishLoading);
 		*/
-
-		this.asyncRemoveTodo(item);
+		this.props.thunkRemoveTodo(item);
+		//this.asyncRemoveTodo(item);
 	}
 
 	asyncRemoveTodo = async (item) => {
@@ -52,6 +52,9 @@ function mapDispatchToProps(dispatch) {
 		},
 		finishLoading : () => {
 			dispatch(todoActions.finishLoading());
+		},
+		thunkRemoveTodo : (todo) => {
+			dispatch(todoActions.thunkRemoveTodo(todo));
 		}
 	};
 }
